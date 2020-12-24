@@ -41,8 +41,8 @@ jobs:
         # コミットメッセージに特に指定がない場合はマイナーバージョンを更新する
         if: "!(steps.major.conclusion == 'success' || steps.minor.conclusion == 'success')"
         run: npm version patch
-      - name: Push origin main
-        run: git push -f origin main
+      - name: Push origin
+        run: git push
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
