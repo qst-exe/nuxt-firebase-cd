@@ -42,7 +42,7 @@ jobs:
         if: "!(steps.major.conclusion == 'success' || steps.minor.conclusion == 'success')"
         run: npm version patch
       - name: Push origin main
-        run: git push -f origin main
+        run: git push origin main
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
