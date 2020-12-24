@@ -42,7 +42,7 @@ jobs:
       - name: Patch release
         # コミットメッセージに特に指定がない場合はマイナーバージョンを更新する
         id: patch
-        if: ($GITHUB_ENV['VERSION_COUNT'] == 0)
+        if: "(echo $GITHUB_ENV['VERSION_COUNT']) == 0"
         run: |
           npm version patch -m "bump up version patch: %s"
       - name: CI finish
@@ -53,4 +53,3 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
-        # "!(steps.major.conclusion == 'success' || steps.minor.conclusion == 'success')"
