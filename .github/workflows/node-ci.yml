@@ -39,7 +39,7 @@ jobs:
       - name: Patch release
         # コミットメッセージに特に指定がない場合はマイナーバージョンを更新する
         id: patch
-        if: "!(steps.major.conclusion == 'success' || steps.minor.conclusion == 'success' || contains(toJSON(github.event.commits.*.message), 'bump up version patch'))"
+        if: "!(steps.major.conclusion == 'success' || steps.minor.conclusion == 'success' || ((git log --oneline | grep 'bump up version patch' | wc -l)== 0))"
         run: |
           npm version patch -m "bump up version patch: %s"
       - name: CI finish
