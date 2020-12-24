@@ -36,10 +36,11 @@ jobs:
         id: minor
         if: steps.major.conclusion == 'skipped'  && contains(toJSON(github.event.commits.*.message), 'bump up version minor')
         run: echo 'bump up version minor'
+      - run: git log --oneline | grep 'bump up version patch' | wc -l | (read v ;echo -e VERSION_COUNT="$v";) >> $GITHUB_ENV
       - name: Patch release
         # コミットメッセージに特に指定がない場合はマイナーバージョンを更新する
         id: patch
-        if: "!(steps.major.conclusion == 'success' || steps.minor.conclusion == 'success' || ((git log --oneline | grep 'bump up version patch' | wc -l) == 0))"
+        if: "!(steps.major.conclusion == 'success' || steps.minor.conclusion == 'success' || ($GITHUB_ENV['VERSION_COUNT'] == 0))"
         run: |
           npm version patch -m "bump up version patch: %s"
       - name: CI finish
