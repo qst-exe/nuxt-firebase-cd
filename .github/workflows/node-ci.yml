@@ -27,7 +27,7 @@ jobs:
       - name: Set Git Config
         run: |
           git config --global user.name "Nuxt Firebase CD"
-          git config --global user.email task.19.xx@gmail.com
+          git config --global user.email git@qst.com
       - name: Major release
         id: major
         if: contains(toJSON(github.event.commits.*.message), 'bump up version major')
