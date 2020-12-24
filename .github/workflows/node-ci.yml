@@ -24,14 +24,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: install jq
-        run: |
-          sudo apt-get update
-          sudo apt-get install jq
-      - name: check package version
-        run: |
-          cat package.json | jq -r '.version' | awk 'BEGIN{FS=OFS="."} {$3+=1} 1' | (read v ;echo -e VERSION="$v";) >> $GITHUB_ENV
-      - run: echo $GITHUB_ENV['VERSION']
+#      - name: install jq
+#        run: |
+#          sudo apt-get update
+#          sudo apt-get install jq
+#      - name: check package version
+#        run: |
+#          cat package.json | jq -r '.version' | awk 'BEGIN{FS=OFS="."} {$3+=1} 1' | (read v ;echo -e VERSION="$v";) >> $GITHUB_ENV
+#      - run: echo $GITHUB_ENV['VERSION']
       - name: Set Git Config
         run: |
           git config --global user.name "Nuxt Firebase CD"
@@ -49,7 +49,8 @@ jobs:
         # コミットメッセージに特に指定がない場合はマイナーバージョンを更新する
         if: "!(steps.major.conclusion == 'success' || steps.minor.conclusion == 'success' || contains(toJSON(github.event.commits.*.message), 'bump up version patch'))"
         run: |
-          cat package.json | jq -r '.version' | awk 'BEGIN{FS=OFS="."} {$3+=1} 1' | npm version patch -m (read v ;echo -e bump up version patch="$v";)
+#          cat package.json | jq -r '.version' | awk 'BEGIN{FS=OFS="."} {$3+=1} 1' | (read v ;echo -e VERSION="$v";) >> $GITHUB_ENV
+          npm version patch -m "bump up version patch: %s"
       - name: Push origin
         run: git push
       - run: npm ci
