@@ -32,10 +32,10 @@ jobs:
 #        run: |
 #          cat package.json | jq -r '.version' | awk 'BEGIN{FS=OFS="."} {$3+=1} 1' | (read v ;echo -e VERSION="$v";) >> $GITHUB_ENV
 #      - run: echo $GITHUB_ENV['VERSION']
-#      - name: Set Git Config
-#        run: |
-#          git config --global user.name "Nuxt Firebase CD"
-#          git config --global user.email git@qst.com
+      - name: Set Git Config
+        run: |
+          git config --global user.name "Nuxt Firebase CD"
+          git config --global user.email git@qst.com
 #      - name: Major release
 #        id: major
 #        if: contains(toJSON(github.event.commits.*.message), 'bump up version major')
