@@ -24,14 +24,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-#      - name: install jq
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install jq
-#      - name: check package version
-#        run: |
-#          cat package.json | jq -r '.version' | awk 'BEGIN{FS=OFS="."} {$3+=1} 1' | (read v ;echo -e VERSION="$v";) >> $GITHUB_ENV
-#      - run: echo $GITHUB_ENV['VERSION']
       - name: Set Git Config
         run: |
           git config --global user.name "Nuxt Firebase CD"
@@ -42,14 +34,17 @@ jobs:
         run: echo 'bump up version major'
       - name: Minor release
         id: minor
-        # メジャーバージョンアップをしていないときマイナーバージョンアップを行なうか
         if: steps.major.conclusion == 'skipped'  && contains(toJSON(github.event.commits.*.message), 'bump up version minor')
         run: echo 'bump up version minor'
       - name: Patch release
         # コミットメッセージに特に指定がない場合はマイナーバージョンを更新する
+        id: patch
         if: "!(steps.major.conclusion == 'success' || steps.minor.conclusion == 'success' || contains(toJSON(github.event.commits.*.message), 'bump up version patch'))"
         run: |
           npm version patch -m "bump up version patch: %s"
+      - name: CI finish
+        if: "!(steps.patch.conclusion == 'success')"
+        run: exit
       - name: Push origin
         run: git push
       - run: npm ci
