@@ -28,15 +28,13 @@ jobs:
         run: |
           git config --global user.name "Nuxt Firebase CD"
           git config --global user.email git@qst.com
-      - run: |
-          git fetch
-#          git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l
-#          git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l | (read v ;echo -e VERSION_COUNT="$v";) >> $GITHUB_ENV
       - name: Patch release
         # コミットメッセージに特に指定がない場合はマイナーバージョンを更新する
         id: patch
         run: |
-          if [git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l == 0]; then
+          git fetch
+          EXISTS_PATCH=`git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l`
+          if [EXISTS_PATCH = 0]; then
             npm version patch -m "bump up version patch: %s"
           fi
           echo steps.patch.conclusion
