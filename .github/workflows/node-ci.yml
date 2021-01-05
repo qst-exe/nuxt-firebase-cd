@@ -31,6 +31,7 @@ jobs:
         id: patch
         run: |
           git fetch
+          git status
           exists_patch=`git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l`
           echo $exists_patch
           if [ $exists_patch = 0 ]; then
