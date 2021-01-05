@@ -39,6 +39,7 @@ jobs:
           if [$GITHUB_ENV['VERSION_COUNT'] == 0]; then
             npm version patch -m "bump up version patch: %s"
           fi
+          echo steps.patch.conclusion
       - name: CI finish
         if: "(steps.patch.conclusion == 'success')"
         run: git push
