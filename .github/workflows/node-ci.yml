@@ -36,4 +36,4 @@ jobs:
           if [ $exists_patch = 0 ]; then
             npm version patch -m "bump up version patch: %s"
           fi
-          git push
+          git push origin ${GITHUB_REF##*/}
