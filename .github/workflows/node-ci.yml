@@ -34,8 +34,8 @@ jobs:
           git status
           exists_patch=`git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l`
           echo "${GITHUB_HEAD_REF}"
-          echo "${{ github.ref }}"
+          git checkout ${GITHUB_HEAD_REF}
           if [ $exists_patch = 0 ]; then
             npm version patch -m "bump up version patch: %s"
           fi
-          git push origin ${GITHUB_REF}
+          git push origin ${GITHUB_HEAD_REF}
