@@ -33,11 +33,12 @@ jobs:
         id: patch
         run: |
           git fetch
-          EXISTS_PATCH=`git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l`
-          if [$EXISTS_PATCH = 0]; then
+          exists_patch=`git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l`
+          echo $$exists_patch
+          if [$exists_patch = 0]; then
             npm version patch -m "bump up version patch: %s"
           fi
-          echo steps.patch.conclusion
+          echo $steps.patch.conclusion
       - name: CI finish
         if: "(steps.patch.conclusion == 'success')"
         run: git push
