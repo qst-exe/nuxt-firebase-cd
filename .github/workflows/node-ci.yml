@@ -34,7 +34,7 @@ jobs:
         run: |
           git fetch
           exists_patch=`git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l`
-          echo $$exists_patch
+          echo $exists_patch
           if [$exists_patch = 0]; then
             npm version patch -m "bump up version patch: %s"
           fi
