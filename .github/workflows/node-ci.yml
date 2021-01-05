@@ -38,5 +38,4 @@ jobs:
           if [$exists_patch -eq 0]; then
             npm version patch -m "bump up version patch: %s"
           fi
-          echo ${steps.patch.conclusion}
           git push
