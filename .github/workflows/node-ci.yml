@@ -30,6 +30,7 @@ jobs:
           git config --global user.email git@qst.com
       - run: |
           git fetch
+          git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l
           git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l | (read v ;echo -e VERSION_COUNT="$v";) >> $GITHUB_ENV
           echo $GITHUB_ENV['VERSION_COUNT']
       - name: Patch release
