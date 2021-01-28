@@ -26,16 +26,17 @@ jobs:
         run: |
           git config --global user.name "Nuxt Firebase CD"
           git config --global user.email git@qst.com
+      # コミットメッセージに特に指定がない場合はマイナーバージョンを更新する
       - name: Patch release
-        # コミットメッセージに特に指定がない場合はマイナーバージョンを更新する
-        id: patch
         run: |
-          git fetch
-          git status
-          exists_patch=`git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l`
-          echo "${GITHUB_HEAD_REF}"
-          git checkout ${GITHUB_HEAD_REF}
-          if [ $exists_patch = 0 ]; then
-            npm version patch -m "bump up version patch: %s"
+          if [ "`echo ${{ github.event.pull_request.title }} | grep 'WIP'`" ]; then
+            echo "WIPのPRのため自動バージョン更新は行いません"
+          else
+            git fetch
+            exists_patch=`git log --oneline origin/main..HEAD | grep 'bump up version' | wc -l`
+            git checkout ${GITHUB_HEAD_REF}
+            if [ $exists_patch = 0 ]; then
+              npm version patch -m "bump up version patch: %s"
+            fi
+            git push origin ${GITHUB_HEAD_REF}
           fi
-          git push origin ${GITHUB_HEAD_REF}
