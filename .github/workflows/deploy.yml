@@ -30,8 +30,10 @@ jobs:
       - name: Deploy to Firebase Hosting
         run: |
           firebase deploy --only hosting --token $FIREBASE_TOKEN
+          echo "========"
           echo "${{ github.event.pull_request.merged }}"
           echo "${{ github.event.head_commit.message }}"
+          echo "${{ github.event.sender.avatar_url }}"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
