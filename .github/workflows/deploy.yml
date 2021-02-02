@@ -34,6 +34,7 @@ jobs:
           echo "${{ github.event.pull_request.merged }}"
           echo "${{ github.event.head_commit.message }}"
           echo "${{ github.event.sender.avatar_url }}"
+          echo "${{ github.actor }}"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
@@ -58,7 +59,7 @@ jobs:
                   },
                   {
                     "title": "GitHub Actions URL",
-                    "value": "${{ github.event.pull_request.url }}"
+                    "value": "${{ github.event.repository.url }}/actions/runs/${{ github.run_id }}"
                   },
                   {
                     "title": "アプリURL",
