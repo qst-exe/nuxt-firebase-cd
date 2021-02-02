@@ -30,7 +30,6 @@ jobs:
       - name: Deploy to Firebase Hosting
         run: |
           firebase deploy --only hosting --token $FIREBASE_TOKEN
-          exit;
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
@@ -56,28 +55,6 @@ jobs:
                   {
                     "title": "アプリURL",
                     "value": "${{ secrets.APP_URL }}"
-                  }
-                ]
-              }
-            ]
-
-      - name: post message to Slack by failure
-        if: failure()
-        uses: tokorom/action-slack-incoming-webhook@master
-        env:
-          INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        with:
-          text: "*ビルド失敗です!!* :scream:"
-          attachments: |
-            [
-              {
-                "color": "bad",
-                "author_name": "${{ github.actor }}",
-                "author_icon": "${{ github.event.sender.avatar_url }}",
-                "fields": [
-                  {
-                    "title": "実行されたジョブ",
-                    "value": "${{ github.event.repository.url }}/actions/runs/${{ github.run_id }}"
                   }
                 ]
               }
