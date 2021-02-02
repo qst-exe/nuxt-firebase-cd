@@ -76,9 +76,8 @@ jobs:
                       "url": "${{ secrets.APP_URL }}"
                     }
                   ]
-                },
-                {
-                  "type": "divider"
-                }
+              },
+              {
+                "type": "divider"
               }
             ]
