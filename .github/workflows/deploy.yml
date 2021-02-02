@@ -39,7 +39,7 @@ jobs:
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
-          text: "GitHub Actions成功!!"
+          text: ":white_check_mark: ビルド成功です!! :clap:"
           attachments: |
             [
               {
