@@ -32,6 +32,7 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
+
       # ビルド成功時にSlack通知を飛ばす
       - name: post message to Slack
         if: success()
