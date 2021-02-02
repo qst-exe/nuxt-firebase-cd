@@ -40,44 +40,45 @@ jobs:
           INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
           text: "GitHub Actions成功!!"
-#          blocks: |
-#            [
-#              {
-#                "type": "section",
-#                "text": {
-#                  "type": "mrkdwn",
-#                  "text": "デプロイ完了しました!! :clap:"
-#                }
-#              },
-#              {
-#                "type": "divider"
-#              },
-#              {
-#                "type": "section",
-#                "text": {
-#                  "type": "mrkdwn",
-#                  "text": "*${{ github.event.pull_request.title }}*\nPushed by ${{ github.event.pull_request.user.login }}\n\n*URL*\n${{ github.event.pull_request.url }}"
-#                },
-#                "accessory": {
-#                  "type": "image",
-#                  "image_url": "${{ github.event.pull_request.user.avatar_url }}",
-#                  "alt_text": "User Icon"
-#                }
-#              },
-#              {
-#                "type": "actions",
-#                  "elements": [
-#                    {
-#                      "type": "button",
-#                      "text": {
-#                        "type": "plain_text",
-#                        "text": "アプリを開く"
-#                      },
-#                      "url": "${{ secrets.APP_URL }}"
-#                    }
-#                  ]
-#                },
-#                {
-#                  "type": "divider"
-#                }
-#              ]
+          blocks: |
+            [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "デプロイ完了しました!! :clap:"
+                }
+              },
+              {
+                "type": "divider"
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*${{ github.event.pull_request.title }}*\nPushed by ${{ github.event.pull_request.user.login }}\n\n*URL*\n${{ github.event.pull_request.url }}"
+                },
+                "accessory": {
+                  "type": "image",
+                  "image_url": "${{ github.event.pull_request.user.avatar_url }}",
+                  "alt_text": "User Icon"
+                }
+              },
+              {
+                "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "アプリを開く"
+                      },
+                      "url": "${{ secrets.APP_URL }}"
+                    }
+                  ]
+                },
+                {
+                  "type": "divider"
+                }
+              }
+            ]
